@@ -7,7 +7,7 @@ canvas.width = W;
 canvas.height = H;
 
 // Background source default
-let currentBgSource = 'images/standee-01.jpg';
+let currentBgSource = 'images/rgb-01.jpg';
 
 // Controls (if you have them)
 const colorButtons = document.querySelectorAll('.controls button');
