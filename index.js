@@ -61,12 +61,12 @@ function generateImage() {
     // --- 1️⃣ Draw QR inside phone screen ---
     loadImage('UploadQR', (qr) => {
       if (qr) {
-        const qrBoxW = W * 0.35;   // QR box width
-        const qrBoxH = H * 0.36;   // QR box height
+        const qrBoxW = W * 0.37;   // QR box width
+        const qrBoxH = H * 0.33;   // QR box height
 
         // ✅ Slightly more right (previously +W*0.01, now +W*0.015)
-        const qrBoxX = W * 0.35 + (W * 0.015);
-        const qrBoxY = H * 0.32;
+        const qrBoxX = W * 0.33 + (W * 0.024);
+        const qrBoxY = H * 0.34;
 
         const qrPadding = 0.98;
         const qrSize = Math.min(qrBoxW, qrBoxH) * qrPadding;
@@ -78,7 +78,7 @@ function generateImage() {
         // Slight left tilt
         ctx.save();
         ctx.translate(drawX + qrSize / 2, drawY + qrSize / 2);
-        ctx.rotate((-7 * Math.PI) / 180);
+        ctx.rotate((-5 * Math.PI) / 180);
         ctx.drawImage(qr, -qrSize / 2, -qrSize / 2, qrSize, qrSize);
         ctx.restore();
       }
@@ -87,9 +87,9 @@ function generateImage() {
      loadImage('companyLogo', (logo) => {
   if (logo) {
     // White box on left side near bottom
-    const boxW = W * 0.30; // width of white box
+    const boxW = W * 0.40; // width of white box
     const boxH = H * 0.12; // height of white box
-    const boxX = W * 0.10; // move to left side (adjust this to move more/less)
+    const boxX = W * 0.07; // move to left side (adjust this to move more/less)
     const boxY = H * 0.86; // near bottom
 
     // Draw white box
