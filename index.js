@@ -127,41 +127,59 @@ function generateImage() {
 
 
 
+// 📄 Download as A4 PDF
 document.getElementById('downloadPDF').addEventListener('click', () => {
-    // This function MUST remain separate from generateImage()
     const { jsPDF } = window.jspdf;
-    
-    // This ensures the library is available before trying to use it
+
     if (!jsPDF) {
-        alert("⚠️ Error: jsPDF library is not loaded in your HTML. PDF download failed.");
+        alert("⚠️ jsPDF library is not loaded.");
         return;
     }
-    
+
+    // Target A4 in pixels (approx)
+    const A4_WIDTH = 794;
+    const A4_HEIGHT = 1123;
+
+    // Create A4 PDF
     const pdf = new jsPDF({
         orientation: 'portrait',
         unit: 'px',
-        format: [canvas.width, canvas.height] // match canvas size
+        format: [A4_WIDTH, A4_HEIGHT]
     });
 
+    // Convert canvas to image
     const imgData = canvas.toDataURL('image/png');
 
-    pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+    // Draw the image stretched to A4
+    pdf.addImage(imgData, 'PNG', 0, 0, A4_WIDTH, A4_HEIGHT);
 
-    pdf.save('OfferImage.pdf');
+    // Save file
+    pdf.save('OfferImage_A4.pdf');
 });
 
+
+// 🖼️ Download as A4 JPG Image
 document.getElementById('downloadStandee').addEventListener('click', () => {
-    // 1. Get the image data from the canvas
-    const imgData = canvas.toDataURL('image/jpeg', 0.9); // 0.9 is the quality for JPG
+    const A4_WIDTH = 794;
+    const A4_HEIGHT = 1123;
 
-    // 2. Create a temporary anchor element
+    // Create a temporary canvas to resize to A4
+    const tempCanvas = document.createElement('canvas');
+    const ctx = tempCanvas.getContext('2d');
+
+    tempCanvas.width = A4_WIDTH;
+    tempCanvas.height = A4_HEIGHT;
+
+    // Draw your main canvas scaled to A4
+    ctx.drawImage(canvas, 0, 0, A4_WIDTH, A4_HEIGHT);
+
+    // Convert to JPG (quality = 0.9)
+    const imgData = tempCanvas.toDataURL('image/jpeg', 0.9);
+
+    // Create download link
     const link = document.createElement('a');
-    
-    // 3. Set the download filename and the image data as the href
-    link.download = 'StandeeImage.jpg'; 
+    link.download = 'StandeeImage_A4.jpg';
     link.href = imgData;
-
-    // 4. Append the link to the document, click it, and remove it
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
