@@ -1,0 +1,204 @@
+/* === Body Styling === */
+body {
+  margin: 0;
+  font-family: "Poppins", Arial, sans-serif;
+  background-image: url('images/download (1).jpg');
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+
+ 
+
+
+/* === Main Container === */
+.container {
+  background: white;
+  border-radius: 20px;
+  padding: 30px 40px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  width: 90%;
+  max-width: 750px;
+}
+
+/* === Heading === */
+h1 {
+  text-align: center;
+  background: #ffcc00;
+  color: #333;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+  font-size: 26px;
+  margin-bottom: 20px;
+}
+
+/* === Subheading === */
+h2 {
+  
+  color: #444;
+  margin-top: 25px;
+  font-size: 20px;
+  background: #fff5cc;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+  
+}
+
+/* === Form === */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* === Labels === */
+label {
+  font-weight: 600;
+  color: #222;
+}
+
+/* === Input Fields === */
+input[type="file"],
+input[type="text"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  width: 100%;
+  transition: border-color 0.3s;
+}
+
+input[type="file"]:focus,
+input[type="text"]:focus {
+  outline: none;
+  border-color: #ffb400;
+  box-shadow: 0 0 4px #ffdd33;
+}
+
+/* === Generate Button === */
+#generateButton {
+  background-color: #ffb400;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+#generateButton:hover {
+  background-color: #e6a100;
+  transform: scale(1.03);
+}
+
+/* === Canvas Preview === */
+canvas {
+  display: block;
+  margin: 20px auto;
+  border-radius: 10px;
+  border: 2px dashed #999;
+  background: #f8f8f8;
+  max-width: 100%;
+}
+
+/* === Download Button === */
+#downloadLink {
+  display: block;
+  text-align: center;
+  background-color: #0077ff;
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  margin: 15px auto;
+  width: fit-content;
+  transition: all 0.3s ease;
+}
+
+#downloadLink:hover {
+  background-color: #005ed1;
+  transform: scale(1.05);
+}
+
+/* === Horizontal Line === */
+hr {
+  margin: 20px 0;
+  border: none;
+  border-top: 2px solid #eee;
+}
+
+#check{
+  text-align: center;
+}
+
+.controls{
+  text-align: center;
+
+  height: 15px;
+}
+
+
+/* 
+/* Center the button container */
+/* Full-width container */
+/* CORRECTED WRAPPER CSS - The DOT is essential! */
+.button-wrapper {
+    width: 100%;
+    display: flex;             /* 1. Turns this into a flex container */
+    justify-content: center;   /* 2. Centers its children (the buttons) horizontally */
+    gap: 20px;                 /* Adds space between the two buttons */
+    margin: 30px 0;
+}
+
+/* Stylish Green Button (PDF) */
+#downloadPDF {
+    background: linear-gradient(135deg, #4CAF50, #2E8B57);
+    color: white;
+    border: none;
+    padding: 15px 35px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Stylish Blue Button (Standee Image) */
+#downloadStandee {
+    background: linear-gradient(135deg, #2196F3, #1976D2); /* Blue Gradient */
+    color: white;
+    border: none;
+    padding: 15px 35px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+
+/* Hover effect for Green Button */
+#downloadPDF:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    background: linear-gradient(135deg, #45a049, #1e5e3d);
+}
+
+/* Hover effect for Blue Button */
+#downloadStandee:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    background: linear-gradient(135deg, #1e88e5, #0d47a1);
+}

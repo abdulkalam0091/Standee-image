@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offer Image Generator</title>
+  <link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Malayalam:wght@700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>🖼️ Create Offer Image</h1>
+
+    <form enctype="multipart/form-data" id="imageForm">
+
+ <label for="UploadQR">Upload QR (Place on Pedestal):</label>
+  <input type="file" id="UploadQR" name="UploadQR" accept="image/*">
+ 
+
+
+      <label for="companyLogo">Company Logo (Top White Bar):</label>
+      <input type="file" id="companyLogo" name="companyLogo" accept="image/*">
+
+      
+      <hr>
+      
+
+      
+
+       
+    
+<div class="controls"> 
+   
+</div>
+
+
+   
+
+      <button type="button" id="generateButton">🎨 Generate Standee image</button>
+    </form>
+
+    
+    <canvas id="canvas" width="800" height="800"></canvas>
+<h2 id="check">Preview & Download</h2>
+    <div class="button-wrapper">
+    <button type="button" id="downloadStandee">⬇️ Download Standee image</button>
+    
+    <button type="button" id="downloadPDF">📄 Download as PDF</button>
+</div>
+  </div>
+
+  <script src="index.js"></script>
+</body>
+</html>
