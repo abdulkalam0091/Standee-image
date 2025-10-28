@@ -2,9 +2,14 @@ const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
 // Canvas size (match to your desired output)
-const W = 800, H = 1000;
+// Use full A4 resolution for direct high-quality download
+const W = 4960; // A4 width at 600 DPI
+const H = 7016; // A4 height at 600 DPI
 canvas.width = W;
 canvas.height = H;
+
+// Hide canvas completely (no preview)
+canvas.style.display = "none";
 
 // Background source default
 let currentBgSource = 'images/rgb-01.jpg';
@@ -79,6 +84,8 @@ function generateImage() {
         ctx.save();
         ctx.translate(drawX + qrSize / 2, drawY + qrSize / 2);
         ctx.rotate((-5 * Math.PI) / 180);
+
+        ctx.globalCompositeOperation = "multiply";
         ctx.drawImage(qr, -qrSize / 2, -qrSize / 2, qrSize, qrSize);
         ctx.restore();
       }
@@ -129,58 +136,57 @@ function generateImage() {
 
 // 📄 Download as A4 PDF
 document.getElementById('downloadPDF').addEventListener('click', () => {
-    const { jsPDF } = window.jspdf;
+    const { jsPDF } = window.jspdf || {};
+    if (!jsPDF) return alert("⚠️ jsPDF library not loaded.");
 
-    if (!jsPDF) {
-        alert("⚠️ jsPDF library is not loaded.");
-        return;
-    }
+    const canvas = window.canvas || document.getElementById('canvas');
+    if (!canvas) return alert("⚠️ Main canvas not found.");
 
-    // Target A4 in pixels (approx)
-    const A4_WIDTH = 794;
-    const A4_HEIGHT = 1123;
+    // ✅ A4 @ 600 DPI (print quality)
+    const A4_WIDTH = 4960;
+    const A4_HEIGHT = 7016;
 
-    // Create A4 PDF
-    const pdf = new jsPDF({
-        orientation: 'portrait',
-        unit: 'px',
-        format: [A4_WIDTH, A4_HEIGHT]
-    });
-
-    // Convert canvas to image
-    const imgData = canvas.toDataURL('image/png');
-
-    // Draw the image stretched to A4
-    pdf.addImage(imgData, 'PNG', 0, 0, A4_WIDTH, A4_HEIGHT);
-
-    // Save file
-    pdf.save('OfferImage_A4.pdf');
-});
-
-
-// 🖼️ Download as A4 JPG Image
-document.getElementById('downloadStandee').addEventListener('click', () => {
-    const A4_WIDTH = 794;
-    const A4_HEIGHT = 1123;
-
-    // Create a temporary canvas to resize to A4
+    // Create high-res temp canvas
     const tempCanvas = document.createElement('canvas');
     const ctx = tempCanvas.getContext('2d');
-
     tempCanvas.width = A4_WIDTH;
     tempCanvas.height = A4_HEIGHT;
 
-    // Draw your main canvas scaled to A4
     ctx.drawImage(canvas, 0, 0, A4_WIDTH, A4_HEIGHT);
 
-    // Convert to JPG (quality = 0.9)
-    const imgData = tempCanvas.toDataURL('image/jpeg', 0.9);
+    // 🔹 Less compression → bigger file (≈ 8–12 MB)
+    const imgData = tempCanvas.toDataURL('image/jpeg', 0.98);
 
-    // Create download link
-    const link = document.createElement('a');
-    link.download = 'StandeeImage_A4.jpg';
-    link.href = imgData;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    // Create PDF (no compression)
+    const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'px',
+        format: [A4_WIDTH, A4_HEIGHT],
+        compress: false,
+    });
+
+    pdf.addImage(imgData, 'JPEG', 0, 0, A4_WIDTH, A4_HEIGHT);
+    pdf.save('Standee_A4_UltraQuality.pdf');
+});
+
+
+// 🖼️ **High-Quality JPG (~6–8 MB)**
+document.getElementById('downloadStandee').addEventListener('click', async () => {
+  if (!document.getElementById('companyLogo').files.length) {
+    return alert("⚠️ Please upload Company Logo first.");
+  }
+  if (!document.getElementById('UploadQR').files.length) {
+    return alert("⚠️ Please upload QR image first.");
+  }
+
+  await new Promise(resolve => {
+    generateImage();
+    setTimeout(resolve, 1500); // small delay to finish drawing
+  });
+
+  const imgData = canvas.toDataURL('image/jpeg', 0.98);
+  const link = document.createElement('a');
+  link.download = 'Standee_A4_HQ.jpg';
+  link.href = imgData;
+  link.click();
 });
